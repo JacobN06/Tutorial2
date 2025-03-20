@@ -1,5 +1,7 @@
+import java.util.HashMap;
 public class Main {
-    public static void filterEvenIndexOddValue (int [] arr) {
+    public static void filterEvenIndexOddValue () {
+        int[] arr = {1,2,3,4,5,6};
         int counter = 0;
         int len = 0;
         for (int i = 0; i < arr.length; i=i+2) {
@@ -28,32 +30,59 @@ public class Main {
         }
     }
     public static int findDominant() {
-        int [] array = {1,2,3,3,4};
-        int dominantCount = 0;
-        int dominantValue = 0;
-        int currentCounter = 0;
-        int currentValue = 0;
-        for (int i = 0; i < array.length -1 ; i++) {
-            if (array[i] != array[i+1]) {
-                if (currentCounter > dominantCount) {
-                    dominantValue = array[i];
-                    dominantCount = currentCounter;
-
-                }
-
-
+        int [] arr2 = {4,2,1,1,3};
+        int n = arr2.length;
+        if (n == 0) {
+            System.out.println(-1);
+            return -1;
+        }
+        else {
+            HashMap<Integer, Integer> freqMap = new HashMap<>();
+            for (int currentNumber : arr2) {
+                freqMap.put(currentNumber, freqMap.getOrDefault(currentNumber, 0) + 1);
             }
-            else{
-                currentCounter++;
+            for (int num : freqMap.keySet()) {
+                if (freqMap.get(num) > 1) {
+                    System.out.println(num);
+                    return num;
+                }
+            }
+            System.out.println(-1);
+            return -1;
+        }
+
+
+    }
+    public static int [] rotateArray() {
+        int [] arr3 = {1,2,3,4,5,6};
+        int positions = 7;
+        int [] newarr = new int[arr3.length];
+        while (positions > arr3.length) {
+            positions -= arr3.length;
+        }
+        int [] newPositions  = new int[arr3.length];
+        int [] newSpot = new int[arr3.length];
+        for (int i = 0; i < arr3.length; i++) {
+            newSpot[i] = i - positions ;
+            if (newSpot[i] < 0) {
+                newSpot[i] = arr3.length - positions + i;
             }
         }
-        return dominantValue;
+        for (int i = 0; i < arr3.length; i++) {
+            newPositions[i] = arr3[newSpot[i]];
+            System.out.print(newPositions[i] + ",");
+        }
+            return newarr;
     }
     public static void main(String[] args) {
         System.out.println("task 1");
-        filterEvenIndexOddValue (new int [] {1, 2, 3, 4, 5, 6});
+        filterEvenIndexOddValue ();
         System.out.println("");
         System.out.println("task 2");
         findDominant();
+        System.out.println("");
+        System.out.println("task 3");
+        rotateArray();
+
     }
 }
